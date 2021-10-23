@@ -1,0 +1,44 @@
+<html>
+<body>
+  
+<div id="divMain"></div>
+
+<script src="Coords.js"></script>
+<script src="DisplayHelper.js"></script>
+<script src="Food.js"></script>
+<script src="Globals.js"></script>
+<script src="InputHelper.js"></script>
+<script src="Level.js"></script>
+<script src="Mover.js"></script>
+
+<script type="text/javascript">
+
+// main
+
+class SnakeGame
+{
+	run()
+	{
+		var level0 = new Level
+		(
+			new Coords(32, 32) // sizeInCells
+		);
+
+		Globals.Instance.initialize
+		(
+			200, // millisecondsPerTimerTick
+			new Coords(128, 128), // viewSizeInPixels
+			level0
+		);
+	}
+}
+
+// run
+
+new SnakeGame().run();
+
+</script>
+
+</body>
+</html>
+    
