@@ -6,7 +6,6 @@ class DisplayHelper
 	static ColorBackground = "Black";
 	static ColorBorder = "Gray";
 	static ColorFood = "Red"
-	static ColorMover = "LightGreen";
 
 	// methods
 
@@ -32,8 +31,21 @@ class DisplayHelper
 	drawLevel(level)
 	{
 		this.clear();
-		this.drawLevel_Food(level, level.food);
-		this.drawLevel_Mover(level, level.mover);
+		
+		var foods = level.foods;
+		for (var f = 0; f < foods.length; f++)
+		{
+			var food = foods[f];
+			this.drawLevel_Food(level, food);
+		}
+		
+		var movers = level.movers;
+		for (var m = 0; m < movers.length; m++)
+		{
+			var mover = movers[m];
+			this.drawLevel_Mover(level, mover);
+		}
+		
 		this.drawLevel_Status(level);
 	}
 
@@ -66,14 +78,15 @@ class DisplayHelper
 		);
 		var cellSizeInPixelsHalf = cellSizeInPixels.clone().divideScalar(2);
 
-		this.graphics.strokeStyle = DisplayHelper.ColorMover;
+		this.graphics.strokeStyle = mover.color;
 		this.graphics.beginPath();
 
 		var cellPositionsOccupied = mover.cellPositionsOccupied;
+		var cellPosOccupied0 = cellPositionsOccupied[0];
 
 		var drawPos = new Coords().overwriteWith
 		(
-			cellPositionsOccupied[0]
+			cellPosOccupied0
 		).multiply
 		(
 			cellSizeInPixels
@@ -112,13 +125,17 @@ class DisplayHelper
 			level.sizeInCells
 		);
 
-		var moverLength = level.mover.cellPositionsOccupied.length - 1;
+		var movers = level.movers;
+		var moverLengths = level.movers.map(x => x.length());
+		var moverLengthsConcatenated = moverLengths.join("        ");
+
 		this.graphics.fillStyle = DisplayHelper.ColorBorder;
 		this.graphics.fillText
 		(
-			"" + moverLength, 
-			cellSizeInPixels.x, cellSizeInPixels.y * 2
+			"" + moverLengthsConcatenated, 
+			cellSizeInPixels.x, cellSizeInPixels.y * 3
 		);
+
 	}
 
 	initialize(viewSizeInPixels)

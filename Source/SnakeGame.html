@@ -21,13 +21,17 @@ class SnakeGame
 	{
 		var level0 = new Level
 		(
-			new Coords(32, 32) // sizeInCells
+			new Coords(128, 128), // sizeInCells
+			[
+				new Mover("One", "Cyan", [ "a", "d" ]),
+				new Mover("Two", "Yellow", [ "ArrowLeft", "ArrowRight" ])
+			]
 		);
 
 		Globals.Instance.initialize
 		(
-			200, // millisecondsPerTimerTick
-			new Coords(128, 128), // viewSizeInPixels
+			50, // millisecondsPerTimerTick
+			new Coords(512, 512), // viewSizeInPixels
 			level0
 		);
 	}

@@ -1,12 +1,22 @@
 class Mover
 {
-	constructor(name, forward, cellPositionsOccupied)
+	constructor
+	(
+		name, color, controlKeysLeftAndRight, forward, cellPositionsOccupied
+	)
 	{
 		this.name = name;
+		this.color = color;
+		this.controlKeysLeftAndRight = controlKeysLeftAndRight;
 		this.forward = forward;
 		this.cellPositionsOccupied = cellPositionsOccupied;
 	}
 
+	length()
+	{
+		return this.cellPositionsOccupied.length - 1;
+	}
+	
 	occupiesCellAtPos(cellPosToCheck)
 	{
 		var returnValue = false;
@@ -38,22 +48,35 @@ class Mover
 			level.isOver = true;
 		}
 
-		if (this.occupiesCellAtPos(cellPosNext))
+		var doesAnyMoverOccupyCellPosNextSoFar = false;
+		
+		var movers = level.movers;
+		for (var m = 0; m < movers.length; m++)
 		{
-			level.isOver = true;
+			var mover = movers[m];
+			if (mover.occupiesCellAtPos(cellPosNext))
+			{
+				level.isOver = true;
+			}
 		}
 
 		this.cellPositionsOccupied.splice(0, 0, cellPosNext);
 
-		var foodPos = level.food.pos;
+		var foods = level.foods;
+		for (var f = 0; f < foods.length; f++)
+		{
+			var food = foods[f];
+			var foodPos = food.pos;
 
-		if (cellPosNext.equals(foodPos))
-		{
-			level.food = null;
-		}
-		else
-		{
-			this.cellPositionsOccupied.splice(-1, 1);
+			if (cellPosNext.equals(foodPos))
+			{
+				foods.splice(foods.indexOf(food), 1);
+				f--;
+			}
+			else
+			{
+				this.cellPositionsOccupied.splice(-1, 1);
+			}
 		}
 	}
 }
