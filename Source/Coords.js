@@ -71,11 +71,28 @@ class Coords
 		return this;
 	}
 
+	magnitude()
+	{
+		return Math.sqrt(this.x * this.x + this.y * this.y);
+	}
+
 	multiply(other)
 	{
 		this.x *= other.x;
 		this.y *= other.y;
 		return this;
+	}
+
+	multiplyScalar(scalar)
+	{
+		this.x *= scalar;
+		this.y *= scalar;
+		return this;
+	}
+
+	normalize()
+	{
+		return this.divideScalar(this.magnitude());
 	}
 
 	overwriteWith(other)

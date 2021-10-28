@@ -18,17 +18,34 @@ class Level
 
 	initialize()
 	{
+		if (this.movers.length > 4)
+		{
+			throw new Error("Too many movers!");
+		}
+
 		for (var i = 0; i < this.movers.length; i++)
 		{
 			var mover = this.movers[i];
 			
-			var moverPosInitial = new Coords
+			var distanceFromCenter = this.sizeInCells.x / 8;
+			var angleInTurns = i / this.movers.length;
+			var angleInRadians = angleInTurns * Math.PI * 2;
+
+			var moverOffsetFromCenter = new Coords
 			(
-				(i + 1) * this.sizeInCells.x / (this.movers.length + 1),
-				this.sizeInCells.y / 2
+				Math.cos(angleInRadians),
+				Math.sin(angleInRadians)
+			).multiplyScalar
+			(
+				distanceFromCenter
 			).floor();
 
-			var moverForwardInitial = new Coords(1, 0);	
+			var centerPos = this.sizeInCells.clone().divideScalar(2);
+
+			var moverPosInitial = moverOffsetFromCenter.clone().add(centerPos);
+
+			var moverForwardInitial = moverOffsetFromCenter.clone().normalize();
+	
 			mover.forward = moverForwardInitial;
 			mover.cellPositionsOccupied = 
 			[ 
