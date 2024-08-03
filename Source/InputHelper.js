@@ -16,6 +16,8 @@ class InputHelper
 
 	handleEventKeyDown(event)
 	{
+		event.preventDefault();
+
 		var keyPressed = event.key;
 		if (this.keysPressed.indexOf(keyPressed) == -1)
 		{

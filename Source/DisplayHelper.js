@@ -31,14 +31,14 @@ class DisplayHelper
 	drawLevel(level)
 	{
 		this.clear();
-		
+
 		var foods = level.foods;
 		for (var f = 0; f < foods.length; f++)
 		{
 			var food = foods[f];
 			this.drawLevel_Food(level, food);
 		}
-		
+
 		var movers = level.movers;
 		for (var m = 0; m < movers.length; m++)
 		{
@@ -112,9 +112,9 @@ class DisplayHelper
 				cellSizeInPixelsHalf
 			);
 			this.graphics.lineTo(drawPos.x, drawPos.y);
-			
 		}
 
+		this.graphics.lineWidth = cellSizeInPixels.x;
 		this.graphics.stroke();
 	}
 

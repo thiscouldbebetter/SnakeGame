@@ -1,7 +1,20 @@
 <html>
 <body>
-  
-<div id="divMain"></div>
+
+<div id="divUi">
+
+	<h3>Snake Game</h3>
+	
+	<p>
+		Press the A and D keys to turn left or right.
+		The object of the game is to guide the snake to
+		eat the food, and grow as long as possible,
+		without hitting any obstacles or, eventually, another snake.
+	</p>
+
+	<div id="divMain"></div>
+
+</div>
 
 <script src="Coords.js"></script>
 <script src="DisplayHelper.js"></script>
@@ -21,16 +34,16 @@ class SnakeGame
 	{
 		var level0 = new Level
 		(
-			new Coords(256, 256), // sizeInCells
+			new Coords(128, 128), // sizeInCells
 			[
 				new Mover("One", "Cyan", [ "a", "d" ]),
-				new Mover("Two", "Yellow", [ "ArrowLeft", "ArrowRight" ])
+				// new Mover("Two", "Yellow", [ "ArrowLeft", "ArrowRight" ])
 			]
 		);
 
 		Globals.Instance.initialize
 		(
-			25, // millisecondsPerTimerTick
+			40, // millisecondsPerTimerTick
 			new Coords(512, 512), // viewSizeInPixels
 			level0
 		);
